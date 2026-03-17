@@ -2,9 +2,9 @@ name: Bi-Weekly Portfolio Update
 
 on:
   schedule:
-    - cron: '0 9 * * 1'   # Every Monday 9am UTC
-    - cron: '0 9 * * 4'   # Every Thursday 9am UTC
-  workflow_dispatch:       # This creates the manual Run button
+    - cron: '0 9 * * 1'
+    - cron: '0 9 * * 4'
+  workflow_dispatch:
 
 jobs:
   update-portfolio:
@@ -16,33 +16,18 @@ jobs:
         with:
           token: ${{ secrets.PORTFOLIO_TOKEN }}
 
+      - name: Set git identity
+        run: |
+          git config user.name "Suraj Jacob Bot"
+          git config user.email "suraj.jacob07@gmail.com"
+
       - name: Update timestamp
         run: |
           DATE=$(date '+%Y-%m-%d %H:%M UTC')
           echo "Last updated: $DATE" > LAST_UPDATED.txt
-          git config user.name "Suraj Jacob Bot"
-          git config user.email "suraj.jacob07@gmail.com"
+
+      - name: Commit and push
+        run: |
           git add .
-          git diff --cached --quiet || git commit -m "chore: portfolio update $DATE"
+          git diff --cached --quiet || git commit -m "chore: portfolio update $(date '+%Y-%m-%d')"
           git push
-```
-
-**Step 4 — Commit the file**
-- Scroll down → click **"Commit new file"** (commit directly to main)
-
-**Step 5 — Check Actions tab**
-- Click the **Actions** tab in your repo
-- Wait 30 seconds and refresh
-- You should now see **"Bi-Weekly Portfolio Update"** on the left sidebar
-- Click it → **"Run workflow"** → **"Run workflow"**
-
----
-
-### What You Should See Step by Step
-```
-Actions Tab (before)          Actions Tab (after committing file)
-─────────────────────         ────────────────────────────────────
-"Get started with             "Bi-Weekly Portfolio Update"  ← NEW
- GitHub Actions"               ↳ Run workflow button appears
-  → Simple workflow
-  → More workflows...
