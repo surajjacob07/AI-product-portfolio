@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Yoda Bot — macOS launchd schedule file
+  
+  Installation:
+    1. Edit the ProgramArguments paths below to match your actual install path
+    2. cp config/com.yoda.daily.plist ~/Library/LaunchAgents/
+    3. launchctl load ~/Library/LaunchAgents/com.yoda.daily.plist
+    
+  To unload:
+    launchctl unload ~/Library/LaunchAgents/com.yoda.daily.plist
+    
+  To check status:
+    launchctl list | grep yoda
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.yoda.daily</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <!-- UPDATE THESE PATHS to match your installation -->
+        <string>/Users/YOUR_USERNAME/yoda-bot/venv/bin/python</string>
+        <string>/Users/YOUR_USERNAME/yoda-bot/yoda.py</string>
+    </array>
+    
+    <key>WorkingDirectory</key>
+    <!-- UPDATE THIS PATH -->
+    <string>/Users/YOUR_USERNAME/yoda-bot</string>
+    
+    <key>StartCalendarInterval</key>
+    <dict>
+        <!-- Runs at 07:30 AM daily — adjust Hour/Minute as needed -->
+        <key>Hour</key>
+        <integer>7</integer>
+        <key>Minute</key>
+        <integer>30</integer>
+    </dict>
+    
+    <key>StandardOutPath</key>
+    <!-- UPDATE THIS PATH -->
+    <string>/Users/YOUR_USERNAME/yoda-bot/logs/yoda.log</string>
+    
+    <key>StandardErrorPath</key>
+    <!-- UPDATE THIS PATH -->
+    <string>/Users/YOUR_USERNAME/yoda-bot/logs/yoda_error.log</string>
+    
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+    
+    <!-- Run immediately if machine was off during scheduled time -->
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>

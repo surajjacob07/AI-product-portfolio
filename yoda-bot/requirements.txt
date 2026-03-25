@@ -1,0 +1,25 @@
+# Yoda Bot — Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# AI APIs
+anthropic>=0.34.0
+openai>=1.40.0
+google-generativeai>=0.7.0
+
+# Notion
+notion-client>=2.2.1
+
+# Web / HTTP
+requests>=2.32.0
+feedparser>=6.0.11
+
+# Job Search
+google-search-results>=2.4.2  # SerpAPI
+
+# Utilities
+python-dotenv>=1.0.0
+pyyaml>=6.0.1
+apscheduler>=3.10.4
+
+# Logging / Dev
+rich>=13.7.0  # Pretty terminal output (optional)
